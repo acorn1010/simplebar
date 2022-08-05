@@ -10,6 +10,7 @@ export default class SimpleBar {
   constructor(element, options) {
     this.el = element;
     this.minScrollbarWidth = 20;
+    this.stopScrollDelay = 175;
     this.options = { ...SimpleBar.defaultOptions, ...options };
     this.classNames = {
       ...SimpleBar.defaultOptions.classNames,
@@ -125,7 +126,8 @@ export default class SimpleBar {
       horizontal: 'simplebar-horizontal',
       vertical: 'simplebar-vertical',
       hover: 'simplebar-hover',
-      dragging: 'simplebar-dragging'
+      dragging: 'simplebar-dragging',
+      scrolling: 'simplebar-scrolling'
     },
     scrollbarMinSize: 25,
     scrollbarMaxSize: 0,
@@ -516,6 +518,13 @@ export default class SimpleBar {
       elWindow.requestAnimationFrame(this.scrollY);
       this.scrollYTicking = true;
     }
+
+    this.el.classList.add(this.classNames.scrolling);
+    elWindow.clearTimeout(this.scrollingTimeout);
+    this.scrollingTimeout = elWindow.setTimeout(() => {
+      this.el.classList.remove(this.classNames.scrolling);
+      this.scrollingTimeout = null;
+    }, this.stopScrollDelay);
   };
 
   scrollX = () => {
@@ -911,6 +920,8 @@ export default class SimpleBar {
     this.onMouseMove.cancel();
     this.hideScrollbars.cancel();
     this.onWindowResize.cancel();
+
+    elWindow.clearTimeout(this.scrollingTimeout);
   }
 
   /**

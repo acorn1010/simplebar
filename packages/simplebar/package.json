@@ -2,7 +2,7 @@
   "version": "5.3.8",
   "name": "simplebar",
   "title": "SimpleBar.js",
-  "description": "Scrollbars, simpler.",
+  "description": "Scrollbars, simpler. Modified with scrolling.",
   "files": [
     "dist",
     "src",
