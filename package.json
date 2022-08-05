@@ -56,9 +56,7 @@
     "> 0.25%",
     "not op_mini all"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream precommit"
-    }
+  "dependencies": {
+    "node-gyp": "^9.1.0"
   }
 }
